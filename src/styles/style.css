@@ -1,3 +1,11 @@
+@font-face {
+  font-family: main;
+  src: url("../assets/fonts/main.otf");
+}
+@font-face {
+  font-family: main;
+  src: url("../assets/fonts/body.otf");
+}
 html {
   font-size: 100%;
   padding: 0%;
@@ -8,7 +16,7 @@ html {
 body {
   height: 100%;
   color: white;
-  font-family: main;
+  font-family: body;
   background-image: linear-gradient(to right top, #383838, #2c2c2c, #202020, #151515, #040404);
   background-size: cover;
   background-attachment: fixed;
@@ -31,25 +39,34 @@ header {
   background-color: black;
   width: 100%;
   height: 20%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
 }
 header h1 {
-  margin-left: 1em;
   font-size: 3rem;
+  margin-left: 0.5em;
+  font-family: main !important;
 }
 header img {
-  margin: 1em;
+  margin-left: 1em;
   transition: transform 300ms ease-in-out;
   -webkit-transition: transform 300ms ease-in-out;
   -moz-transition: transform 300ms ease-in-out;
   -ms-transition: transform 300ms ease-in-out;
   -o-transition: transform 300ms ease-in-out;
 }
+header img:hover {
+  cursor: pointer;
+  background-color: rgba(94, 94, 94, 0.4);
+}
 header img.show {
-  transform: translate(600%) rotate(180deg);
-  -webkit-transform: translate(600%) rotate(180deg);
-  -moz-transform: translate(600%) rotate(180deg);
-  -ms-transform: translate(600%) rotate(180deg);
-  -o-transform: translate(600%) rotate(180deg);
+  transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
 }
 
 footer {
@@ -75,13 +92,87 @@ footer p a:hover {
 
 #side-bar {
   color: black;
-  background-color: #c0c0c0;
+  background-color: #f2f3f4;
   border: black 2px solid;
   width: 20%;
   align-self: stretch;
   margin-right: 3em;
   padding: 1em;
   box-sizing: border-box;
+  transition: transform 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out;
+  -moz-transition: transform 300ms ease-in-out;
+  -ms-transition: transform 300ms ease-in-out;
+  -o-transition: transform 300ms ease-in-out;
+}
+
+#time-containers {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+#time-containers p {
+  font-size: 1.35rem;
+  margin: 0%;
+  font-weight: 900;
+  display: inline-block;
+  position: relative;
+  color: black;
+}
+#time-containers p::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: bottom right;
+  transition: transform 500ms ease-out;
+  -webkit-transition: transform 500ms ease-out;
+  -moz-transition: transform 500ms ease-out;
+  -ms-transition: transform 500ms ease-out;
+  -o-transition: transform 500ms ease-out;
+}
+#time-containers p:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+#time-containers p:hover {
+  cursor: pointer;
+}
+
+#projects {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#projects #plus-icon-side {
+  align-self: center;
+  transition: transform 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out;
+  -moz-transition: transform 300ms ease-in-out;
+  -ms-transition: transform 300ms ease-in-out;
+  -o-transition: transform 300ms ease-in-out;
+}
+#projects #plus-icon-side:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+  -webkit-transform: scale(1.15);
+  -moz-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  -o-transform: scale(1.15);
+}
+
+#side-bar.slide {
+  transform: translate(-150%);
+  -webkit-transform: translate(-150%);
+  -moz-transform: translate(-150%);
+  -ms-transform: translate(-150%);
+  -o-transform: translate(-150%);
 }
 
 #middle {
@@ -89,6 +180,33 @@ footer p a:hover {
   justify-content: flex-start;
   width: 100%;
   height: 100%;
+}
+
+#one, #two {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+}
+#one h3, #two h3 {
+  font-size: 1.7rem;
+  text-decoration: underline;
+}
+#one img, #two img {
+  margin-right: 0.7em;
+  transition: transform 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out;
+  -moz-transition: transform 300ms ease-in-out;
+  -ms-transition: transform 300ms ease-in-out;
+  -o-transition: transform 300ms ease-in-out;
+}
+#one img:hover, #two img:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+  -webkit-transform: scale(1.15);
+  -moz-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  -o-transform: scale(1.15);
 }
 
 /*# sourceMappingURL=style.css.map */
