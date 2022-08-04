@@ -24,7 +24,6 @@ const sidebar = document.getElementById('side-bar');
 const one = document.getElementById('one');
 const two = document.getElementById('two');
 const all = document.getElementById('all');
-const tasks = document.getElementById('tasks');
 const date = document.getElementById('date-icon');
 const finished = document.getElementById('finished-icon');
 const tag = document.getElementById('tag-icon');
@@ -42,12 +41,6 @@ priorityIcon.src = Priority;
 
 plusIcon.id = 'plus-icon-side';
 
-sidebarIcon.addEventListener('click', () => {
-    sidebarIcon.classList.toggle('show');
-    sidebar.classList.toggle('slide');
-    tasks.classList.toggle('slide-left');
-});
-
 projects.appendChild(plusIcon);
 header.appendChild(sidebarIcon);
 one.appendChild(homeIcon);
@@ -63,3 +56,32 @@ export function addIcon() {
     icn.src = List;
     return icn;
 }
+
+export function showTasks(name) {
+    const tasksContainer = document.createElement('div');
+    const header = document.createElement('h2');
+    tasksContainer.id = 'tasks';
+    header.id = 'current-project';
+    header.textContent = name;
+    tasksContainer.appendChild(header);
+    return tasksContainer;
+}
+
+export function addTask(title) {
+    const task = document.createElement('div');
+    const name = document.createElement('h3');
+    task.classList.add('task-item');
+    name.textContent = title;
+    task.appendChild(name);
+    return task;
+}
+
+let t = showTasks('TEST');
+t.appendChild(addTask('test program'))
+document.getElementById('content').appendChild(t);
+
+sidebarIcon.addEventListener('click', () => {
+    sidebarIcon.classList.toggle('show');
+    sidebar.classList.toggle('slide');
+    t.classList.toggle('slide-left');
+});

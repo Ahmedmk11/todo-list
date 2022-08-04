@@ -242,7 +242,7 @@ footer p a:hover {
 }
 
 #tasks {
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -312,6 +312,11 @@ footer p a:hover {
 #date-icon img, #finished-icon img, #tag-icon img, #priority-icon img {
   margin-right: 0.5em;
   width: 20px;
+}
+
+#content {
+  width: 75%;
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

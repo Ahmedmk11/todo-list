@@ -1,7 +1,7 @@
 import addIcon from './ui.js'
-tasks = [];
-projects = [];
-tags = [];
+let tasks = [];
+let projects = [];
+let tags = [];
 
 class Project {
     constructor(title) {
