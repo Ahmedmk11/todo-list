@@ -16,7 +16,8 @@ html {
 }
 
 body {
-    height: 100%;
+    min-height: 100%;
+    height: fit-content;
     color: white;
     font-family: body;
     background-image: linear-gradient(to right top, #383838, #2c2c2c, #202020, #151515, #040404);
@@ -26,7 +27,7 @@ body {
     margin: 0%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: stretch;
     align-items: center;
     img {
         -webkit-user-drag: none;
@@ -40,7 +41,7 @@ header {
     font-family: Arial, Helvetica, sans-serif;
     background-color: black;
     width: 100%;
-    height: 20%;
+    height: 24%;
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
@@ -80,7 +81,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    height: 15%;
     p {
         margin: 0.4em;
         color: white;
@@ -98,7 +99,7 @@ footer {
     background-color: #f2f3f4;
     border: black 2px solid;
     width: 20%;
-    align-self: stretch;
+    min-height: 100%;
     margin-right: 3em;
     padding: 1em;
     box-sizing: border-box;
@@ -109,8 +110,8 @@ footer {
     -o-transition: transform 300ms ease-in-out;
 }
 
-#time-containers {
-    height: 20%;
+#time-container {
+    height: 100px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -148,10 +149,77 @@ footer {
     }
 }
 
+#side-bar.slide {
+    transform: translate(-150%);
+    -webkit-transform: translate(-150%);
+    -moz-transform: translate(-150%);
+    -ms-transform: translate(-150%);
+    -o-transform: translate(-150%);
+}
+
+#middle {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    flex-grow: 1;
+}
+
+#one, #two {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    h3 {
+        font-size: 1.7rem;
+        text-decoration: underline;
+    }
+    h3:hover {
+        cursor: pointer;
+    }
+    img {
+        width: 30px;
+        margin-right: 0.7em;
+        transition: transform 300ms ease-in-out;
+        -webkit-transition: transform 300ms ease-in-out;
+        -moz-transition: transform 300ms ease-in-out;
+        -ms-transition: transform 300ms ease-in-out;
+        -o-transition: transform 300ms ease-in-out;
+    }
+    img:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+}
+}
+
+.project-class {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 1em;
+    box-sizing: border-box;
+    img {
+        width: 20px;
+        margin-right: 0.6em;
+    }
+}
+
+.project-class:hover {
+    cursor: pointer;
+    background-color: rgba(94, 94, 94, 0.4);
+}
+
 #projects {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: flex-end;
     #plus-icon-side {
         align-self: center;
         transition: transform 300ms ease-in-out;
@@ -168,46 +236,24 @@ footer {
         -ms-transform: scale(1.15);
         -o-transform: scale(1.15);
     }
-}
-
-#side-bar.slide {
-    transform: translate(-150%);
-    -webkit-transform: translate(-150%);
-    -moz-transform: translate(-150%);
-    -ms-transform: translate(-150%);
-    -o-transform: translate(-150%);
-}
-
-#middle {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-#one, #two {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    align-items: center;
-    h3 {
-        font-size: 1.7rem;
-        text-decoration: underline;
+    h4 {
+        font-size: 1.32em;
+        font-weight: 800;
+        margin: 0%;
     }
-    img {
-        margin-right: 0.7em;
-        transition: transform 300ms ease-in-out;
-        -webkit-transition: transform 300ms ease-in-out;
-        -moz-transition: transform 300ms ease-in-out;
-        -ms-transition: transform 300ms ease-in-out;
-        -o-transition: transform 300ms ease-in-out;
-    }
-    img:hover{
-        cursor: pointer;
-        transform: scale(1.15);
-        -webkit-transform: scale(1.15);
-        -moz-transform: scale(1.15);
-        -ms-transform: scale(1.15);
-        -o-transform: scale(1.15);
+}
+
+#tasks {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: white 2px solid;
+    min-height: 100%;
+    height: fit-content;
+    text-align: center;
+    .task-item {
+        border: 2px solid white;
+        margin: 1em;
     }
 }
