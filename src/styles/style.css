@@ -267,6 +267,10 @@ footer p a:hover {
   -o-border-radius: 15px;
 }
 #tasks .task-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   text-align: start;
   border: 2px solid white;
   margin: 1em;
@@ -282,6 +286,12 @@ footer p a:hover {
   -moz-transition: transform 50ms ease-in-out;
   -ms-transition: transform 50ms ease-in-out;
   -o-transition: transform 50ms ease-in-out;
+}
+#tasks .task-item div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 #tasks .task-item:hover {
   background-color: rgba(94, 94, 94, 0.4);

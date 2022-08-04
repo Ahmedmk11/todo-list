@@ -1,17 +1,14 @@
-import addIcon from './ui.js'
-let tasks = [];
-let projects = [];
-let tags = [];
-
-class Project {
+import {addIcon} from './ui.js';
+export class Project {
     constructor(title) {
-        this.title = title
+        this.title = title;
         this.icon = addIcon();
     }
 }
 
-class Task {
-    constructor(title, description, dueDate = 'none', dueTime = 'none', tags = ['all'], priority = 1, isComplete = false) {
+export class Task {
+    constructor(title, description, dueDate,
+    dueTime, tags, priority, isComplete = false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -22,7 +19,7 @@ class Task {
     }
 }
 
-class Tag {
+export class Tag {
     constructor(title) {
         this.title = title;
     }
