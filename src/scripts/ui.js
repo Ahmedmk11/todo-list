@@ -74,14 +74,21 @@ export function showTasks(currProject, tasks) { // displays task container and h
         const tagsDiv = document.createElement('div');
         const date = document.createElement('p');
         const time = document.createElement('p');
+        const editDiv = document.createElement('div');
+        const edit = document.createElement('p');
+        const deleteTask = document.createElement('p');
 
         task.classList.add('task-item');
+        description.classList.add('description');
+        editDiv.classList.add('edit')
 
         name.textContent = tasks[i].title;
         description.textContent = tasks[i].description;
         priority.textContent = '!'.repeat(tasks[i].priority);
         date.textContent = tasks[i].dueDate;
         time.textContent = tasks[i].dueTime;
+        edit.textContent = 'Edit';
+        deleteTask.textContent = 'Delete';
 
         if (tasks[i].tags.length > 0) {
             for (let j = 0; j < tasks[i].tags.length; j++) {
@@ -95,6 +102,8 @@ export function showTasks(currProject, tasks) { // displays task container and h
             tagsDiv.appendChild(element);
         }
 
+        editDiv.appendChild(edit);
+        editDiv.appendChild(deleteTask);
         scheduleDiv.appendChild(date);
         scheduleDiv.appendChild(time);
         task.appendChild(name);
@@ -102,6 +111,7 @@ export function showTasks(currProject, tasks) { // displays task container and h
         task.appendChild(scheduleDiv);
         task.appendChild(priority);
         task.appendChild(tagsDiv);
+        task.appendChild(editDiv);
         tasksContainer.appendChild(task);
     }
     return tasksContainer;
