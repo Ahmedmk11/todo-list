@@ -28,6 +28,8 @@ const date = document.getElementById('date-icon');
 const finished = document.getElementById('finished-icon');
 const tag = document.getElementById('tag-icon');
 const priority = document.getElementById('priority-icon');
+const all = document.getElementById('all');
+const plusIcon = new Image();
 
 sidebarIcon.src = SidebarIcn;
 homeIcon.src = HomeIcn;
@@ -37,9 +39,13 @@ dateIcon.src = DateIcn;
 finishedIcon.src = FinishedIcn;
 tagIcon.src = TagIcn;
 priorityIcon.src = PriorityIcn;
+plusIcon.src = PlusIcn;
 
 sidebarIcon.id = 'side-bar-icon';
+plusIcon.id = 'plus-icon-side';
 
+all.appendChild(listIcon);
+projects.appendChild(plusIcon);
 header.appendChild(sidebarIcon);
 one.appendChild(homeIcon);
 two.appendChild(projectsIcon);
@@ -126,45 +132,17 @@ export function showTasks(currProject, tasks) { // displays task container and h
 }
 
 export function showProjects(projectsArr) {
-    const header = document.createElement('h4');
-    const projectDiv = document.createElement('div');
-    const projectIcon = new Image();
-    const plusIcon = new Image();
-
-    projectIcon.src = ListIcn;
-    header.id = 'current-project';
-    projectDiv.classList.add('project-class');
-    header.textContent = 'All Tasks';
-
-    projectDiv.appendChild(header);
-    projectDiv.appendChild(projectIcon);
-    projects.appendChild(projectDiv);
-    
     for (let i = 0; i < projectsArr.length; i++) {
         const header = document.createElement('h4');
         const projectDiv = document.createElement('div');
         const projectIcon = new Image();
 
         projectIcon.src = ListIcn;
-        header.id = 'current-project';
         projectDiv.classList.add('project-class');
         header.textContent = projectsArr[i].title;
 
         projectDiv.appendChild(header);
         projectDiv.appendChild(projectIcon);
-        projects.appendChild(projectDiv);
+        plusIcon.parentNode.insertBefore(projectDiv, plusIcon);
     }
-
-    plusIcon.src = PlusIcn;
-    plusIcon.id = 'plus-icon-side';
-    projects.appendChild(plusIcon);
-}
-
-export function addProject(title) {
-    const task = document.createElement('div');
-    const name = document.createElement('h3');
-    task.classList.add('task-item');
-    name.textContent = title;
-    task.appendChild(name);
-    return task;
 }
