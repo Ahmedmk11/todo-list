@@ -9,8 +9,10 @@ import TagIcn from '../assets/images/tag.png';
 import PriorityIcn from '../assets/images/priority.png';
 import EditIcn from '../assets/images/edit.png';
 import DeleteIcn from '../assets/images/delete.png';
+import DeleteIcn2 from '../assets/images/delete2.png';
 import TaskIcn from '../assets/images/task.png';
 import '../styles/style.css';
+import {onDelete} from './index.js'
 
 const sidebarIcon = new Image();
 const homeIcon = new Image();
@@ -139,21 +141,30 @@ export function showProjects(projectsArr) {
     div.id = 'all';
     div.classList.add('project-class');
     h4.textContent = 'All Tasks';
-    div.appendChild(h4);
     div.appendChild(icn);
+    div.appendChild(h4);
     plusIcon.parentNode.insertBefore(div, plusIcon);
 
     for (let i = 0; i < projectsArr.length; i++) {
         const header = document.createElement('h4');
         const projectDiv = document.createElement('div');
+        const div = document.createElement('div');
         const projectIcon = new Image();
-
+        const del = new Image();
+        
+        del.src = DeleteIcn2;
+        del.classList.add('del-project');
         projectIcon.src = ListIcn;
         projectDiv.classList.add('project-class');
         header.textContent = projectsArr[i].title;
 
-        projectDiv.appendChild(header);
-        projectDiv.appendChild(projectIcon);
+        del.addEventListener('click', onDelete)
+
+        div.appendChild(projectIcon);
+        div.appendChild(header);
+        projectDiv.appendChild(div);
+        projectDiv.appendChild(del);
+        projectDiv.id = `project-${projectsArr.length-1}`;
         plusIcon.parentNode.insertBefore(projectDiv, plusIcon);
     }
 }

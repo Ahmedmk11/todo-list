@@ -31,46 +31,43 @@ sidebarIcon.addEventListener('click', () => {
     t.classList.toggle('slide-left');
 });
 
-projectPlus.addEventListener('click', () => {
-    if (formFlag) {
-        addProject();
-        formFlag = false;
-    }
-});
+projectPlus.addEventListener('click', addProject);
 
 function addProject() {
-    const container = document.createElement('div');
-    const buttons = document.createElement('div');
-    const form = document.createElement('form');
-    const input = document.createElement('input');
-    const add = document.createElement('button');
-    const cancel = document.createElement('button');
-
-    add.textContent = 'Add';
-    cancel.textContent = 'Cancel';
-    form.setAttribute('action', '#');
-    form.setAttribute('method', 'get');
-    form.setAttribute('name', 'projectForm');
-    input.setAttribute('type', 'text');
-    input.setAttribute('placeholder', 'Project Name');
-    input.setAttribute('minlength', '1');
-    input.setAttribute('maxlength', '12');
-    input.setAttribute('autocomplete', 'off');
-    input.setAttribute('required', '');
-    form.id = 'project-form';
-    input.id = 'project-form-name';
-    container.id = 'form-container';
-    add.id = 'add-button';
-    cancel.id = 'cancel-button';
-    buttons.appendChild(add);
-    buttons.appendChild(cancel);
-    form.appendChild(input);
-    container.appendChild(form);
-    container.appendChild(buttons);
-    projectPlus.parentNode.insertBefore(container, projectPlus);
-
-    add.addEventListener('click', onAdd);
-    cancel.addEventListener('click', onCancel);
+    if (formFlag) {
+        const container = document.createElement('div');
+        const buttons = document.createElement('div');
+        const form = document.createElement('form');
+        const input = document.createElement('input');
+        const add = document.createElement('button');
+        const cancel = document.createElement('button');
+        add.textContent = 'Add';
+        cancel.textContent = 'Cancel';
+        form.setAttribute('action', '#');
+        form.setAttribute('method', 'get');
+        form.setAttribute('name', 'projectForm');
+        input.setAttribute('type', 'text');
+        input.setAttribute('placeholder', 'Project Name');
+        input.setAttribute('minlength', '1');
+        input.setAttribute('maxlength', '12');
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('required', '');
+        form.id = 'project-form';
+        input.id = 'project-form-name';
+        container.id = 'form-container';
+        add.id = 'add-button';
+        cancel.id = 'cancel-button';
+        buttons.id = 'btns';
+        buttons.appendChild(add);
+        buttons.appendChild(cancel);
+        form.appendChild(input);
+        container.appendChild(form);
+        container.appendChild(buttons);
+        projectPlus.parentNode.insertBefore(container, projectPlus);
+        add.addEventListener('click', onAdd);
+        cancel.addEventListener('click', onCancel);
+        formFlag = false;
+    }
 }
 
 function onAdd() {
@@ -91,4 +88,24 @@ function onCancel() {
     showProjects(projectsArr);
     formFlag = true;
     cancel.removeEventListener('click', onAdd);
+}
+
+export function onDelete(event) {
+    const project = event.target.parentNode;
+    const index = event.target.parentNode.id.split('-')[1];
+    projectsArr.splice(index, 1)
+    project.parentNode.removeChild(project);
+    let i = 0;
+    let flag = true;
+    let arr = [].slice.call(document.getElementById('projects').children);
+    arr.forEach(element => {
+        if (element.tagName !== 'IMG'){
+            if (flag) {
+                flag = false;
+                return;
+            }
+            element.id = `project-${i}`;
+            i++;
+        }
+    });
 }
