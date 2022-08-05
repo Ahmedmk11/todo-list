@@ -1,24 +1,25 @@
 export class Project {
     constructor(title) {
         this.title = title;
+        this.tasks = [];
     }
 }
 
 export class Task {
     constructor(title, description, dueDate,
-    dueTime, tags, priority, isComplete = false) {
+    dueTime, priority, tags = []) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.dueTime = dueTime;
-        this.tags = tags;
         this.priority = priority;
-        this.isComplete = isComplete;
+        this.tags = tags;
     }
 }
 
 export class Tag {
     constructor(title) {
         this.title = title;
+        this.tasks = [];
     }
 }
