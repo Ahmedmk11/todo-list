@@ -15,7 +15,6 @@ import '../styles/style.css';
 const sidebarIcon = new Image();
 const homeIcon = new Image();
 const projectsIcon = new Image();
-const listIcon = new Image();
 const dateIcon = new Image();
 const finishedIcon = new Image();
 const tagIcon = new Image();
@@ -28,13 +27,11 @@ const date = document.getElementById('date-icon');
 const finished = document.getElementById('finished-icon');
 const tag = document.getElementById('tag-icon');
 const priority = document.getElementById('priority-icon');
-const all = document.getElementById('all');
 const plusIcon = new Image();
 
 sidebarIcon.src = SidebarIcn;
 homeIcon.src = HomeIcn;
 projectsIcon.src = ProjectIcn;
-listIcon.src = ListIcn;
 dateIcon.src = DateIcn;
 finishedIcon.src = FinishedIcn;
 tagIcon.src = TagIcn;
@@ -44,7 +41,6 @@ plusIcon.src = PlusIcn;
 sidebarIcon.id = 'side-bar-icon';
 plusIcon.id = 'plus-icon-side';
 
-all.appendChild(listIcon);
 projects.appendChild(plusIcon);
 header.appendChild(sidebarIcon);
 one.appendChild(homeIcon);
@@ -132,6 +128,21 @@ export function showTasks(currProject, tasks) { // displays task container and h
 }
 
 export function showProjects(projectsArr) {
+    while (projects.childElementCount > 1){
+        projects.removeChild(projects.firstChild);
+    }
+
+    const div = document.createElement('div');
+    const h4 = document.createElement('h4');
+    const icn = new Image();
+    icn.src = ListIcn;
+    div.id = 'all';
+    div.classList.add('project-class');
+    h4.textContent = 'All Tasks';
+    div.appendChild(h4);
+    div.appendChild(icn);
+    plusIcon.parentNode.insertBefore(div, plusIcon);
+
     for (let i = 0; i < projectsArr.length; i++) {
         const header = document.createElement('h4');
         const projectDiv = document.createElement('div');
