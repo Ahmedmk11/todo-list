@@ -116,6 +116,7 @@ function addTask() {
         const dueTime = document.createElement('input');
         const tags = document.createElement('input');
         const priority = document.createElement('input');
+        const mask = document.createElement('div');
 
         form.setAttribute('action', '#');
         form.setAttribute('method', 'get');
@@ -161,9 +162,13 @@ function addTask() {
         quit.src = Quit;
         add.textContent = 'Add';
 
-        form.classList.add('popup');
         form.id = 'add-task-form';
         div.id = 'task-form-container';
+        mask.id = 'mask';
+        document.getElementById('middle').classList.add('popup');
+        document.querySelector('header').classList.add('popup');
+        document.querySelector('footer').classList.add('popup');
+        document.body.appendChild(mask);
 
         form.appendChild(quit);
         form.appendChild(title);
@@ -185,17 +190,13 @@ function timeNow() {
 
 const convertTime12to24 = (time12h) => {
     const [time, modifier] = time12h.split(' ');
-  
     let [hours, minutes] = time.split(':');
-  
     if (hours === '12') {
       hours = '00';
     }
-  
     if (modifier === 'PM') {
       hours = parseInt(hours, 10) + 12;
     }
-  
     return `${hours}:${minutes}`;
 }
   
