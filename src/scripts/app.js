@@ -1,8 +1,6 @@
-import {addIcon} from './ui.js';
 export class Project {
     constructor(title) {
         this.title = title;
-        this.icon = addIcon();
     }
 }
 
