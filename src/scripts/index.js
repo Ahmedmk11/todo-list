@@ -1,13 +1,15 @@
 import Quit from '../assets/images/quit.png';
-import {Task, Project, Tag} from './app.js'
+
+import {Task, Project} from './app.js'
 import {showProjects, showTasks} from './ui.js'
 
 let tasksArr = [];
 let projectsArr = [];
-let tagsArr = [];
 let formFlag = true;
 let formFlag2 = true;
 let mode = 'all';
+
+let allTags = [];
 
 showProjects(projectsArr);
 showTasks('All Tasks', tasksArr);
@@ -118,8 +120,14 @@ function addTask() {
         const desc = document.createElement('input');
         const dueDate = document.createElement('input');
         const dueTime = document.createElement('input');
-        const tags = document.createElement('input');
         const priority = document.createElement('input');
+        const tags = document.createElement('select');
+        const op1 = document.createElement('option');
+        const op2 = document.createElement('option');
+        const op3 = document.createElement('option');
+        const op4 = document.createElement('option');
+        const op5 = document.createElement('option');
+        const op6 = document.createElement('option');
         const mask = document.createElement('div');
 
         title.id = 'form1';
@@ -152,17 +160,22 @@ function addTask() {
         dueDate.setAttribute('required', '');
         
         dueTime.setAttribute('type', 'time');
-        dueTime.setAttribute('min', convertTime12to24(timeNow()));
         dueTime.setAttribute('required', '');
 
-        tags.setAttribute('type', 'text');
-        tags.setAttribute('placeholder', 'Tags');
-        tags.setAttribute('minlength', '1');
-        tags.setAttribute('maxlength', '32');
-        tags.setAttribute('autocomplete', 'off');
-        tags.setAttribute('style', 'border: 2px black solid;')
+        tags.setAttribute('name', 'tagSelect');
+        tags.setAttribute('required', '');
 
-        priority.setAttribute('type', 'text');
+        op1.setAttribute('value', '');
+        op1.setAttribute('disabled', '');
+        op1.setAttribute('selected', '');
+
+        op2.setAttribute('value', 'red');
+        op3.setAttribute('value', 'blue');
+        op4.setAttribute('value', 'green');
+        op5.setAttribute('value', 'yellow');
+        op6.setAttribute('value', 'purple');
+
+        priority.setAttribute('type', 'number');
         priority.setAttribute('placeholder', '*Priority (1-3)');
         priority.setAttribute('maxlength', '1');
         priority.setAttribute('min', '1');
@@ -172,6 +185,12 @@ function addTask() {
 
         quit.src = Quit;
         add.textContent = 'Add';
+        op1.textContent = 'Tag';
+        op2.textContent = 'Red';
+        op3.textContent = 'Blue';
+        op4.textContent = 'Green';
+        op5.textContent = 'Yellow';
+        op6.textContent = 'Purple';
 
         form.id = 'add-task-form';
         div.id = 'task-form-container';
@@ -183,6 +202,12 @@ function addTask() {
         document.querySelector('footer').classList.add('popup');
         document.body.appendChild(mask);
 
+        tags.append(op1);
+        tags.append(op2);
+        tags.append(op3);
+        tags.append(op4);
+        tags.append(op5);
+        tags.append(op6);
         form.appendChild(title);
         form.appendChild(desc);
         form.appendChild(dueDate);
@@ -208,22 +233,6 @@ function addTask() {
     }
 }
 
-function timeNow() {
-    return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-}
-
-const convertTime12to24 = (time12h) => {
-    const [time, modifier] = time12h.split(' ');
-    let [hours, minutes] = time.split(':');
-    if (hours === '12') {
-      hours = '00';
-    }
-    if (modifier === 'PM') {
-      hours = parseInt(hours, 10) + 12;
-    }
-    return `${hours}:${minutes}`;
-}
-
 function onAddTask() {
     const title = document.getElementById('form1');
     const desc = document.getElementById('form2');
@@ -235,9 +244,12 @@ function onAddTask() {
     if (title.reportValidity() && desc.reportValidity() && date.reportValidity()
     && time.reportValidity() && priority.reportValidity() && tags.reportValidity()) {
         const add = document.getElementById('task-add-btn');
+
         let task = new Task(title.value, desc.value, date.value, time.value, priority.value, tags.value);
         tasksArr.push(task);
+        allTags.push(tags.value);
         showTasks('test' ,tasksArr);
+        
         const taskPlus = document.getElementById('task-add-plus');
         taskPlus.addEventListener('click', addTask);
         add.removeEventListener('click', onAddTask);

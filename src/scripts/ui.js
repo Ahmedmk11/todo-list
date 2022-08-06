@@ -12,6 +12,11 @@ import DeleteIcn from '../assets/images/delete.png';
 import DeleteIcn2 from '../assets/images/delete2.png';
 import TaskIcn from '../assets/images/task.png';
 import Add from '../assets/images/addplus.png';
+import Red from '../assets/images/red.png';
+import Blue from '../assets/images/blue.png';
+import Green from '../assets/images/green.png';
+import Yellow from '../assets/images/yellow.png';
+import Purple from '../assets/images/purple.png';
 import {onDelete} from './index.js'
 import '../styles/style.css';
 
@@ -107,11 +112,32 @@ export function showTasks(currProject, tasks) { // displays task container and h
             time.textContent = tasks[i].dueTime;
             editP.textContent = 'Edit';
             deleteTaskP.textContent = 'Delete';
-            const element = document.createElement('p');
+            
+            let element;
     
             if (tasks[i].tags.length > 0) {
-                element.textContent = tasks[i].tags;
+                element = new Image();
+                switch (tasks[i].tags) {
+                    case 'red':
+                        element.src = Red;
+                        break;
+                    case 'blue':
+                        element.src = Blue;
+                        break;
+                    case 'green':
+                        element.src = Green;
+                        break;
+                    case 'yellow':
+                        element.src = Yellow;
+                        break;
+                    case 'purple':
+                        element.src = Purple;
+                        break;
+                    default:
+                        break;
+                }
             } else {
+                element = document.createElement('p');
                 element.textContent = 'No Tags';
             }
     

@@ -290,6 +290,10 @@ footer p a:hover {
   background-color: rgba(94, 94, 94, 0.4);
 }
 
+#form3, #form4, #form6 {
+  cursor: pointer;
+}
+
 #projects {
   display: flex;
   flex-direction: column;
@@ -516,7 +520,7 @@ footer p a:hover {
   justify-content: space-evenly;
   width: 100%;
   padding: 0.2em;
-  height: 50px;
+  height: 42px;
   box-sizing: border-box;
   font-size: 1.5rem;
   font-weight: 900;
@@ -704,8 +708,8 @@ footer p a:hover {
   width: 100%;
   height: 100%;
 }
-#add-task-form input {
-  height: 8%;
+#add-task-form input, #add-task-form select {
+  min-height: 50px;
   width: 100%;
   padding: 0.2em;
   font-size: 1rem;
@@ -715,14 +719,15 @@ footer p a:hover {
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
+  box-sizing: border-box;
 }
-#add-task-form input:invalid:focus {
+#add-task-form input:invalid:focus, #add-task-form select:invalid:focus {
   border-color: red;
 }
-#add-task-form input:focus {
+#add-task-form input:focus, #add-task-form select:focus {
   outline: none;
 }
-#add-task-form input:valid {
+#add-task-form input:valid, #add-task-form select:valid {
   border-color: green;
 }
 
