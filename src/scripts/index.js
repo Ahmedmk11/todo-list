@@ -7,6 +7,7 @@ let projectsArr = [];
 let tagsArr = [];
 let formFlag = true;
 let formFlag2 = true;
+let mode = 'all';
 
 showProjects(projectsArr);
 showTasks('All Tasks', tasksArr);
@@ -14,18 +15,17 @@ showTasks('All Tasks', tasksArr);
 const sidebar = document.getElementById('side-bar');
 const sidebarIcon = document.getElementById('side-bar-icon');
 const projectPlus = document.getElementById('plus-icon-side');
+const taskPlus = document.getElementById('task-add-plus');
 const tasks = document.getElementById('tasks');
 
 sidebarIcon.addEventListener('click', () => {
     sidebarIcon.classList.toggle('show');
     sidebar.classList.toggle('slide');
-    tasks.classList.toggle('slide-left');
+    document.getElementById('content').classList.toggle('slide-left');
 });
 
-const header = document.getElementById('current-project');
 projectPlus.addEventListener('click', addProject);
-// taskPlus
-header.addEventListener('click', addTask);
+taskPlus.addEventListener('click', addTask);
 
 function addProject() {
     if (formFlag) {
@@ -37,17 +37,21 @@ function addProject() {
         const cancel = document.createElement('button');
         add.textContent = 'Add';
         cancel.textContent = 'Cancel';
+        
         form.setAttribute('action', '#');
         form.setAttribute('method', 'get');
         form.setAttribute('name', 'projectForm');
+
         input.setAttribute('type', 'text');
         input.setAttribute('placeholder', 'Project Title');
         input.setAttribute('minlength', '1');
         input.setAttribute('maxlength', '12');
         input.setAttribute('autocomplete', 'off');
         input.setAttribute('required', '');
+        
         form.id = 'project-form';
         input.id = 'project-form-name';
+
         container.id = 'form-container';
         add.id = 'add-button';
         cancel.id = 'cancel-button';
@@ -58,13 +62,13 @@ function addProject() {
         container.appendChild(form);
         container.appendChild(buttons);
         projectPlus.parentNode.insertBefore(container, projectPlus);
-        add.addEventListener('click', onAdd);
+        add.addEventListener('click', onAddProject);
         cancel.addEventListener('click', onCancel);
         formFlag = false;
     }
 }
 
-function onAdd() {
+function onAddProject() {
     const input = document.getElementById('project-form-name');
     if (input.reportValidity()) {
         const add = document.getElementById('add-button');
@@ -73,7 +77,7 @@ function onAdd() {
         showProjects(projectsArr);
         formFlag = true;
 
-        add.removeEventListener('click', onAdd);
+        add.removeEventListener('click', onAddProject);
     }
 }
 
@@ -81,7 +85,7 @@ function onCancel() {
     const cancel = document.getElementById('cancel-button');
     showProjects(projectsArr);
     formFlag = true;
-    cancel.removeEventListener('click', onAdd);
+    cancel.removeEventListener('click', onAddProject);
 }
 
 export function onDelete(event) {
@@ -118,6 +122,13 @@ function addTask() {
         const priority = document.createElement('input');
         const mask = document.createElement('div');
 
+        title.id = 'form1';
+        desc.id = 'form2';
+        dueDate.id = 'form3';
+        dueTime.id = 'form4';
+        priority.id = 'form5';
+        tags.id = 'form6';
+
         form.setAttribute('action', '#');
         form.setAttribute('method', 'get');
         form.setAttribute('name', 'taskForm');
@@ -132,7 +143,7 @@ function addTask() {
         desc.setAttribute('type', 'text');
         desc.setAttribute('placeholder', '*Description');
         desc.setAttribute('minlength', '1');
-        desc.setAttribute('maxlength', '32');
+        desc.setAttribute('maxlength', '78');
         desc.setAttribute('autocomplete', 'off');
         desc.setAttribute('required', '');
 
@@ -165,21 +176,34 @@ function addTask() {
         form.id = 'add-task-form';
         div.id = 'task-form-container';
         mask.id = 'mask';
+        add.id = 'task-add-btn';
+
         document.getElementById('middle').classList.add('popup');
         document.querySelector('header').classList.add('popup');
         document.querySelector('footer').classList.add('popup');
         document.body.appendChild(mask);
 
-        form.appendChild(quit);
         form.appendChild(title);
         form.appendChild(desc);
         form.appendChild(dueDate);
         form.appendChild(dueTime);
         form.appendChild(tags);
         form.appendChild(priority);
+        div.appendChild(quit);
         div.appendChild(form);
         div.appendChild(add);
         document.body.appendChild(div);
+        add.addEventListener('click', onAddTask);
+
+        quit.addEventListener('click', () => {
+            document.getElementById('middle').classList.remove('popup');
+            document.querySelector('header').classList.remove('popup');
+            document.querySelector('footer').classList.remove('popup');
+            document.body.removeChild(mask);
+            document.body.removeChild(div);
+            formFlag2 = true;
+        })
+
         formFlag2 = false;
     }
 }
@@ -199,4 +223,49 @@ const convertTime12to24 = (time12h) => {
     }
     return `${hours}:${minutes}`;
 }
-  
+
+function onAddTask() {
+    const title = document.getElementById('form1');
+    const desc = document.getElementById('form2');
+    const date = document.getElementById('form3');
+    const time = document.getElementById('form4');
+    const priority = document.getElementById('form5');
+    const tags = document.getElementById('form6');
+
+    if (title.reportValidity() && desc.reportValidity() && date.reportValidity()
+    && time.reportValidity() && priority.reportValidity() && tags.reportValidity()) {
+        const add = document.getElementById('task-add-btn');
+        let task = new Task(title.value, desc.value, date.value, time.value, priority.value, tags.value);
+        tasksArr.push(task);
+        showTasks('test' ,tasksArr);
+        const taskPlus = document.getElementById('task-add-plus');
+        taskPlus.addEventListener('click', addTask);
+        add.removeEventListener('click', onAddTask);
+        document.getElementById('middle').classList.remove('popup');
+        document.querySelector('header').classList.remove('popup');
+        document.querySelector('footer').classList.remove('popup');
+        document.body.removeChild(document.getElementById('mask'));
+        document.body.removeChild(document.getElementById('task-form-container'));
+        formFlag2 = true;
+    }
+}
+
+// export function onDeleteTask(event) {
+//     const project = event.target.parentNode;
+//     const index = event.target.parentNode.id.split('-')[1];
+//     projectsArr.splice(index, 1)
+//     project.parentNode.removeChild(project);
+//     let i = 0;
+//     let flag = true;
+//     let arr = [].slice.call(document.getElementById('projects').children);
+//     arr.forEach(element => {
+//         if (element.tagName !== 'IMG'){
+//             if (flag) {
+//                 flag = false;
+//                 return;
+//             }
+//             element.id = `project-${i}`;
+//             i++;
+//         }
+//     });
+// }

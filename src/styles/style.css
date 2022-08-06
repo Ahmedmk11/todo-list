@@ -96,8 +96,9 @@ footer p a:hover {
   background-color: #f2f3f4;
   border: black 2px solid;
   width: 20%;
+  min-width: 280px;
   min-height: 100%;
-  margin-right: 3em;
+  margin-right: 1em;
   padding: 1em;
   box-sizing: border-box;
   transition: transform 300ms ease-in-out;
@@ -207,6 +208,36 @@ footer p a:hover {
 #all img {
   width: 20px;
   margin-right: 0.6em;
+}
+
+#tasks-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+#tasks-header img {
+  align-self: center;
+  margin-left: 2em;
+  cursor: pointer;
+  transition: transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  -moz-transition: transform 100ms ease-in-out;
+  -ms-transition: transform 100ms ease-in-out;
+  -o-transition: transform 100ms ease-in-out;
+}
+#tasks-header img:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+#tasks-header img:active {
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
 }
 
 .project-class {
@@ -418,7 +449,7 @@ footer p a:hover {
 }
 #tasks .task-item {
   height: 110px;
-  min-width: 1045px;
+  min-width: 1100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -426,6 +457,7 @@ footer p a:hover {
   text-align: start;
   border: 2px solid white;
   margin: 1em;
+  margin-left: 0%;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -439,25 +471,43 @@ footer p a:hover {
   -ms-transition: transform 50ms ease-in-out;
   -o-transition: transform 50ms ease-in-out;
 }
-#tasks .task-item div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 16.6%;
-  height: 100%;
-}
 #tasks .task-item p {
-  text-align: left;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1em;
+  max-width: 16%;
+  min-width: 16%;
+  overflow-wrap: break-word;
+}
+#tasks .task-item p#priority-input {
+  text-align: center;
   font-size: 1.2rem;
   margin: 0%;
-  max-width: 16.6%;
+  max-width: 5%;
+  min-width: 5%;
+}
+#tasks .task-item #schedule {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 15%;
+  min-width: 15%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+#tasks .task-item #schedule p {
+  min-width: 100%;
+  margin: 0%;
 }
 #tasks .task-item .edit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  max-height: 110px;
+  max-width: 13%;
+  min-width: 13%;
 }
 #tasks .task-item .edit div {
   display: flex;
@@ -466,8 +516,8 @@ footer p a:hover {
   justify-content: space-evenly;
   width: 100%;
   padding: 0.2em;
+  height: 50px;
   box-sizing: border-box;
-  height: 100%;
   font-size: 1.5rem;
   font-weight: 900;
   color: black;
@@ -485,7 +535,7 @@ footer p a:hover {
   -o-transition: transform 80ms ease-in-out;
 }
 #tasks .task-item .edit div p {
-  width: fit-content;
+  min-width: fit-content;
 }
 #tasks .task-item .edit div:hover {
   transform: scale(1.1);
@@ -508,7 +558,8 @@ footer p a:hover {
   justify-content: space-evenly;
   align-items: center;
   font-size: 1.4rem;
-  width: 15%;
+  max-width: 20%;
+  min-width: 20%;
   color: black;
   padding: 0.2em;
   background-color: white;
@@ -522,8 +573,10 @@ footer p a:hover {
   text-transform: capitalize;
 }
 #tasks .task-item .description {
-  width: 35%;
+  min-width: 22%;
+  max-width: 22%;
   overflow-wrap: break-word;
+  margin-left: 1em;
 }
 #tasks .task-item:hover {
   background-color: rgba(94, 94, 94, 0.4);
@@ -551,6 +604,11 @@ footer p a:hover {
 #content {
   width: 75%;
   height: 100%;
+  transition: transform 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out;
+  -moz-transition: transform 300ms ease-in-out;
+  -ms-transition: transform 300ms ease-in-out;
+  -o-transition: transform 300ms ease-in-out;
 }
 
 #task-form-container {
@@ -573,6 +631,32 @@ footer p a:hover {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+#task-form-container img {
+  user-select: none;
+  cursor: pointer;
+  margin-bottom: 1em;
+  align-self: flex-start;
+  padding: 0%;
+  transition: transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  -moz-transition: transform 100ms ease-in-out;
+  -ms-transition: transform 100ms ease-in-out;
+  -o-transition: transform 100ms ease-in-out;
+}
+#task-form-container img:hover {
+  transform: scale(1.15);
+  -webkit-transform: scale(1.15);
+  -moz-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  -o-transform: scale(1.15);
+}
+#task-form-container img:active {
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
 }
 #task-form-container button {
   background-color: black;
@@ -640,31 +724,6 @@ footer p a:hover {
 }
 #add-task-form input:valid {
   border-color: green;
-}
-#add-task-form img {
-  user-select: none;
-  cursor: pointer;
-  align-self: flex-start;
-  padding: 0%;
-  transition: transform 100ms ease-in-out;
-  -webkit-transition: transform 100ms ease-in-out;
-  -moz-transition: transform 100ms ease-in-out;
-  -ms-transition: transform 100ms ease-in-out;
-  -o-transition: transform 100ms ease-in-out;
-}
-#add-task-form img:hover {
-  transform: scale(1.15);
-  -webkit-transform: scale(1.15);
-  -moz-transform: scale(1.15);
-  -ms-transform: scale(1.15);
-  -o-transform: scale(1.15);
-}
-#add-task-form img:active {
-  transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -moz-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  -o-transform: scale(0.95);
 }
 
 .popup {

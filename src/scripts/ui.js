@@ -11,6 +11,7 @@ import EditIcn from '../assets/images/edit.png';
 import DeleteIcn from '../assets/images/delete.png';
 import DeleteIcn2 from '../assets/images/delete2.png';
 import TaskIcn from '../assets/images/task.png';
+import Add from '../assets/images/addplus.png';
 import {onDelete} from './index.js'
 import '../styles/style.css';
 
@@ -57,10 +58,17 @@ export function showTasks(currProject, tasks) { // displays task container and h
     content.innerHTML = '';
     const tasksContainer = document.createElement('div');
     const header = document.createElement('h2');
+    const div = document.createElement('div');
+    const add = new Image();
+    add.src = Add;
+    add.id = 'task-add-plus';
     tasksContainer.id = 'tasks';
     header.id = 'current-project';
+    div.id = 'tasks-header';
     header.textContent = currProject;
-    tasksContainer.appendChild(header);
+    div.appendChild(header);
+    div.appendChild(add);
+    tasksContainer.appendChild(div);
     
     if (tasks.length > 0) {
         for (let i = 0; i < tasks.length; i++) {
@@ -73,7 +81,6 @@ export function showTasks(currProject, tasks) { // displays task container and h
             const description = document.createElement('p');
             const scheduleDiv = document.createElement('div');
             const priority = document.createElement('p');
-            const tagsDiv = document.createElement('div');
             const date = document.createElement('p');
             const time = document.createElement('p');
             const editDiv = document.createElement('div');
@@ -86,6 +93,8 @@ export function showTasks(currProject, tasks) { // displays task container and h
             description.classList.add('description');
             editDiv.classList.add('edit');
             nameDiv.classList.add('task-name');
+            scheduleDiv.id = ('schedule');
+            priority.id = 'priority-input';
     
             editIcon.src = EditIcn;
             deleteIcon.src = DeleteIcn;
@@ -98,17 +107,12 @@ export function showTasks(currProject, tasks) { // displays task container and h
             time.textContent = tasks[i].dueTime;
             editP.textContent = 'Edit';
             deleteTaskP.textContent = 'Delete';
+            const element = document.createElement('p');
     
             if (tasks[i].tags.length > 0) {
-                for (let j = 0; j < tasks[i].tags.length; j++) {
-                    const element = document.createElement('p');
-                    element.textContent = tasks[i].tags[j];
-                    tagsDiv.appendChild(element);
-                }
+                element.textContent = tasks[i].tags;
             } else {
-                const element = document.createElement('p');
                 element.textContent = 'No Tags';
-                tagsDiv.appendChild(element);
             }
     
             nameDiv.appendChild(taskIcon);
@@ -125,7 +129,7 @@ export function showTasks(currProject, tasks) { // displays task container and h
             task.appendChild(description);
             task.appendChild(scheduleDiv);
             task.appendChild(priority);
-            task.appendChild(tagsDiv);
+            task.appendChild(element);
             task.appendChild(editDiv);
             tasksContainer.appendChild(task);
         }
