@@ -17,8 +17,10 @@ import Blue from '../assets/images/blue.png';
 import Green from '../assets/images/green.png';
 import Yellow from '../assets/images/yellow.png';
 import Purple from '../assets/images/purple.png';
-import {onDelete, onDeleteTask} from './index.js'
+import {onDelete, onDeleteTask, _default, addTask} from './index.js'
 import '../styles/style.css';
+
+export let mode = 'All Tasks';
 
 const sidebarIcon = new Image();
 const homeIcon = new Image();
@@ -59,7 +61,7 @@ finished.appendChild(finishedIcon);
 tag.appendChild(tagIcon);
 priority.appendChild(priorityIcon);
 
-export function showTasks(currProject, tasks) { // displays task container and header
+export function showTasks(tasks) { // displays task container and header
     content.innerHTML = '';
     const tasksContainer = document.createElement('div');
     const header = document.createElement('h2');
@@ -70,7 +72,8 @@ export function showTasks(currProject, tasks) { // displays task container and h
     tasksContainer.id = 'tasks';
     header.id = 'current-project';
     div.id = 'tasks-header';
-    header.textContent = currProject;
+    header.textContent = mode;
+    add.addEventListener('click', addTask);
     div.appendChild(header);
     div.appendChild(add);
     tasksContainer.appendChild(div);
@@ -188,6 +191,11 @@ export function showProjects(projectsArr) {
     div.appendChild(h4);
     plusIcon.parentNode.insertBefore(div, plusIcon);
 
+    div.addEventListener('click', () => {
+        mode = _default.title;
+        showTasks(_default.tasks)
+    });    
+
     for (let i = 0; i < projectsArr.length; i++) {
         const header = document.createElement('h4');
         const projectDiv = document.createElement('div');
@@ -208,6 +216,10 @@ export function showProjects(projectsArr) {
         projectDiv.appendChild(div);
         projectDiv.appendChild(del);
         projectDiv.id = `project-${projectsArr.length-1}`;
+        projectDiv.addEventListener('click', () => {
+            mode = projectsArr[i].title;
+            showTasks(projectsArr[i].tasks)
+        });
         plusIcon.parentNode.insertBefore(projectDiv, plusIcon);
     }
 }

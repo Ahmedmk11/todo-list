@@ -1,24 +1,24 @@
 import Quit from '../assets/images/quit.png';
 
 import {Task, Project} from './app.js'
-import {showProjects, showTasks} from './ui.js'
+import {showProjects, showTasks, mode} from './ui.js'
 
 let tasksArr = [];
 let projectsArr = [];
 let formFlag = true;
 let formFlag2 = true;
-let mode = 'all';
 
 let allTags = [];
 
+export let _default = new Project('All Tasks');
+
 showProjects(projectsArr);
-showTasks('All Tasks', tasksArr);
+showTasks(tasksArr);
 
 const sidebar = document.getElementById('side-bar');
 const sidebarIcon = document.getElementById('side-bar-icon');
 const projectPlus = document.getElementById('plus-icon-side');
 const taskPlus = document.getElementById('task-add-plus');
-const tasks = document.getElementById('tasks');
 
 sidebarIcon.addEventListener('click', () => {
     sidebarIcon.classList.toggle('show');
@@ -110,7 +110,7 @@ export function onDelete(event) {
     });
 }
 
-function addTask() {
+export function addTask() {
     if (formFlag2) {
         const quit = new Image();
         const div = document.createElement('div');
@@ -247,8 +247,18 @@ function onAddTask() {
 
         let task = new Task(title.value, desc.value, date.value, time.value, priority.value, tags.value);
         tasksArr.push(task);
+        _default.tasks.push(task);
         allTags.push(tags.value);
-        showTasks('test' ,tasksArr);
+        projectsArr.forEach(element => {
+            if (element.title === mode) {
+                element.tasks.push(task);
+                showTasks(element.tasks);
+            }
+        });
+
+        if (mode === 'All Tasks') {
+            showTasks(tasksArr);
+        }
         
         const taskPlus = document.getElementById('task-add-plus');
         taskPlus.addEventListener('click', addTask);
