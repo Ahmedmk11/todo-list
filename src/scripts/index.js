@@ -1,7 +1,7 @@
 import Quit from '../assets/images/quit.png';
 
 import {Task, Project} from './app.js'
-import {showProjects, showTasks, mode} from './ui.js'
+import {showProjects, showTasks, mode, setMode} from './ui.js'
 
 let tasksArr = [];
 let projectsArr = [];
@@ -90,9 +90,18 @@ function onCancel() {
     cancel.removeEventListener('click', onAddProject);
 }
 
-export function onDelete(event) {
+export function onDeleteProj(event) {
     const project = event.target.parentNode;
     const index = project.id.split('-')[1];
+    let rtasks = projectsArr[project.id.split('-')[1]].tasks
+    tasksArr.forEach(element => {
+        if (rtasks.includes(element)) {
+            tasksArr.splice(tasksArr.indexOf(element), 1);
+            _default.tasks.splice(_default.tasks.indexOf(element), 1)
+        }
+    });
+    setMode(_default.title);
+    showTasks(tasksArr);
     projectsArr.splice(index, 1)
     project.parentNode.removeChild(project);
     let i = 0;
@@ -280,7 +289,8 @@ export function onDeleteTask(event) {
         task = event.target.parentNode.parentNode.parentNode;
     }
     const index = task.id.split('-')[1];
-    tasksArr.splice(index, 1)
+    tasksArr.splice(index, 1);
+    _default.tasks.splice(index,1);
     task.parentNode.removeChild(task);
     let i = 0;
     let arr = [].slice.call(document.getElementById('tasks').children);

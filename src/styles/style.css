@@ -286,8 +286,27 @@ footer p a:hover {
 }
 
 .project-class:hover {
-  cursor: pointer;
   background-color: rgba(94, 94, 94, 0.4);
+}
+
+.list-icon, .del-project {
+  cursor: pointer;
+}
+
+.list-icon:hover, .del-project:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.list-icon:active, .del-project:active {
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
 }
 
 #form3, #form4, #form6 {

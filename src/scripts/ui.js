@@ -17,7 +17,7 @@ import Blue from '../assets/images/blue.png';
 import Green from '../assets/images/green.png';
 import Yellow from '../assets/images/yellow.png';
 import Purple from '../assets/images/purple.png';
-import {onDelete, onDeleteTask, _default, addTask} from './index.js'
+import {onDeleteProj, onDeleteTask, _default, addTask} from './index.js'
 import '../styles/style.css';
 
 export let mode = 'All Tasks';
@@ -184,6 +184,7 @@ export function showProjects(projectsArr) {
     const h4 = document.createElement('h4');
     const icn = new Image();
     icn.src = ListIcn;
+    icn.classList.add('list-icon');
     div.id = 'all';
     div.classList.add('project-class');
     h4.textContent = 'All Tasks';
@@ -191,7 +192,7 @@ export function showProjects(projectsArr) {
     div.appendChild(h4);
     plusIcon.parentNode.insertBefore(div, plusIcon);
 
-    div.addEventListener('click', () => {
+    icn.addEventListener('click', () => {
         mode = _default.title;
         showTasks(_default.tasks)
     });    
@@ -206,20 +207,30 @@ export function showProjects(projectsArr) {
         del.src = DeleteIcn2;
         del.classList.add('del-project');
         projectIcon.src = ListIcn;
+        projectIcon.classList.add('list-icon');
         projectDiv.classList.add('project-class');
         header.textContent = projectsArr[i].title;
 
-        del.addEventListener('click', onDelete)
+        del.addEventListener('click', onDeleteProj)
 
         div.appendChild(projectIcon);
         div.appendChild(header);
         projectDiv.appendChild(div);
         projectDiv.appendChild(del);
         projectDiv.id = `project-${projectsArr.length-1}`;
-        projectDiv.addEventListener('click', () => {
-            mode = projectsArr[i].title;
-            showTasks(projectsArr[i].tasks)
-        });
         plusIcon.parentNode.insertBefore(projectDiv, plusIcon);
+
+        if (projectsArr.length > 0) {
+            projectIcon.addEventListener('click', () => {
+                mode = projectsArr[i].title;
+                showTasks(projectsArr[i].tasks)
+            });
+        } else {
+            showTasks(_default.tasks);
+        }
     }
+}
+
+export function setMode(value) {
+    mode = value;
 }
