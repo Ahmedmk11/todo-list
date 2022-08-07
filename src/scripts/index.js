@@ -92,7 +92,7 @@ function onCancel() {
 
 export function onDelete(event) {
     const project = event.target.parentNode;
-    const index = event.target.parentNode.id.split('-')[1];
+    const index = project.id.split('-')[1];
     projectsArr.splice(index, 1)
     project.parentNode.removeChild(project);
     let i = 0;
@@ -262,22 +262,22 @@ function onAddTask() {
     }
 }
 
-// export function onDeleteTask(event) {
-//     const project = event.target.parentNode;
-//     const index = event.target.parentNode.id.split('-')[1];
-//     projectsArr.splice(index, 1)
-//     project.parentNode.removeChild(project);
-//     let i = 0;
-//     let flag = true;
-//     let arr = [].slice.call(document.getElementById('projects').children);
-//     arr.forEach(element => {
-//         if (element.tagName !== 'IMG'){
-//             if (flag) {
-//                 flag = false;
-//                 return;
-//             }
-//             element.id = `project-${i}`;
-//             i++;
-//         }
-//     });
-// }
+export function onDeleteTask(event) {
+    let task;
+    if (event.target.tagName === 'DIV'){
+        task = event.target.parentNode.parentNode;
+    } else {
+        task = event.target.parentNode.parentNode.parentNode;
+    }
+    const index = task.id.split('-')[1];
+    tasksArr.splice(index, 1)
+    task.parentNode.removeChild(task);
+    let i = 0;
+    let arr = [].slice.call(document.getElementById('tasks').children);
+    arr.forEach(element => {
+        if (element.classList.contains('task-item')) {
+            element.id = `task-${i}`;
+            i++;
+        }
+    });
+}

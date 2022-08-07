@@ -17,7 +17,7 @@ import Blue from '../assets/images/blue.png';
 import Green from '../assets/images/green.png';
 import Yellow from '../assets/images/yellow.png';
 import Purple from '../assets/images/purple.png';
-import {onDelete} from './index.js'
+import {onDelete, onDeleteTask} from './index.js'
 import '../styles/style.css';
 
 const sidebarIcon = new Image();
@@ -140,6 +140,9 @@ export function showTasks(currProject, tasks) { // displays task container and h
                 element = document.createElement('p');
                 element.textContent = 'No Tags';
             }
+
+            deleteTask.addEventListener('click', onDeleteTask)
+
     
             nameDiv.appendChild(taskIcon);
             nameDiv.appendChild(name);
@@ -157,6 +160,7 @@ export function showTasks(currProject, tasks) { // displays task container and h
             task.appendChild(priority);
             task.appendChild(element);
             task.appendChild(editDiv);
+            task.id = `task-${tasks.length-1}`;
             tasksContainer.appendChild(task);
         }
     } else {
