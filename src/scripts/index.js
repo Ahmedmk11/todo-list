@@ -251,7 +251,7 @@ function onAddTask() {
     && time.reportValidity() && priority.reportValidity() && tags.reportValidity()) {
         const add = document.getElementById('task-add-btn');
 
-        let task = new Task(title.value, desc.value, date.value, time.value, priority.value, tags.value);
+        let task = new Task(title.value, desc.value, new Date(date.value).toLocaleDateString(), time.value, priority.value, tags.value);
         _default.tasks.push(task);
         allTags.push(tags.value);
         projectsArr.forEach(element => {
@@ -310,25 +310,127 @@ export function onDeleteTask(event) {
     });
 }
 
-const dateBtn = document.getElementById('date-t');
 const finishedBtn = document.getElementById('finished-t');
-const tagsBtn = document.getElementById('tags-t');
-const priorityBtn = document.getElementById('priority-t');
+const date1 = document.getElementById('today-dd');
+const date2 = document.getElementById('this-week-dd');
+const date3 = document.getElementById('this-month-dd');
+const tag1 = document.getElementById('red-dd');
+const tag2 = document.getElementById('blue-dd');
+const tag3 = document.getElementById('green-dd');
+const tag4 = document.getElementById('yellow-dd');
+const tag5 = document.getElementById('purple-dd');
+const priority1 = document.getElementById('one-dd');
+const priority2 = document.getElementById('two-dd');
+const priority3 = document.getElementById('three-dd');
 
 finishedBtn.addEventListener('click', () => {
     setMode('Finished Tasks');
-    let allfinished = _default.tasks.filter(task => task.finished);
-    showTasks(allfinished);
+    let arr = _default.tasks.filter(task => task.finished);
+    showTasks(arr);
 });
 
-dateBtn.addEventListener('click', () => {
-
+date1.addEventListener('click', () => {
+    setMode('Today');
+    const today = new Date().toLocaleDateString();
+    let arr = [];
+    for (let i = 0; i < _default.tasks.length; i++) {
+        let task = _default.tasks[i];
+        let taskDate = new Date(task.dueDate).toLocaleDateString();
+        if (taskDate === today) {
+            arr.push(task);
+        }
+        console.log(taskDate)
+        console.log(today)
+    }
+    showTasks(arr);
 });
 
-tagsBtn.addEventListener('click', () => {
+date2.addEventListener('click', () => {
+    setMode('This Week');
+    const day = new Date().getDate() + 7;
+    const month = new Date().getMonth() + 1;
+    const year = new Date().getFullYear();
+    const week = new Date(`${month}/${day}/${year}`)
     
+    let arr = [];
+    for (let i = 0; i < _default.tasks.length; i++) {
+        let task = _default.tasks[i];
+        let taskDate = new Date(task.dueDate);
+        if (getDifferenceInDays(taskDate, week) <= 7) {
+            arr.push(task);
+        }
+        console.log(taskDate)
+        console.log(week)
+    }
+    showTasks(arr);
 });
 
-priorityBtn.addEventListener('click', () => {
+date3.addEventListener('click', () => {
+    setMode('This Month');
+    const month = new Date().getMonth();
     
+    let arr = [];
+    for (let i = 0; i < _default.tasks.length; i++) {
+        let task = _default.tasks[i];
+        let taskDate = new Date(task.dueDate);
+        if (taskDate.getMonth() == month) {
+            arr.push(task);
+        }
+        console.log(taskDate.getMonth())
+        console.log(month)
+    }
+    showTasks(arr);
 });
+
+tag1.addEventListener('click', () => {
+    setMode('Red');
+    let arr = _default.tasks.filter(task => task.tags = 'red');
+    showTasks(arr);
+});
+
+tag2.addEventListener('click', () => {
+    setMode('Blue');
+    let arr = _default.tasks.filter(task => task.tags = 'blue');
+    showTasks(arr);
+});
+
+tag3.addEventListener('click', () => {
+    setMode('Green');
+    let arr = _default.tasks.filter(task => task.tags = 'green');
+    showTasks(arr);
+});
+
+tag4.addEventListener('click', () => {
+    setMode('Yellow');
+    let arr = _default.tasks.filter(task => task.tags = 'yellow');
+    showTasks(arr);
+});
+
+tag5.addEventListener('click', () => {
+    setMode('Purple');
+    let arr = _default.tasks.filter(task => task.tags = 'purple');
+    showTasks(arr);
+});
+
+priority1.addEventListener('click', () => {
+    setMode('Low Priority');
+    let arr = _default.tasks.filter(task => task.priority = '1');
+    showTasks(arr);
+});
+
+priority2.addEventListener('click', () => {
+    setMode('Medium Priority');
+    let arr = _default.tasks.filter(task => task.priority = '2');
+    showTasks(arr);
+});
+
+priority3.addEventListener('click', () => {
+    setMode('High Priority');
+    let arr = _default.tasks.filter(task => task.priority = '3');
+    showTasks(arr);
+});
+
+function getDifferenceInDays(date1, date2) {
+    const diffInMs = Math.abs(date2 - date1);
+    return diffInMs / (1000 * 60 * 60 * 24);
+}
