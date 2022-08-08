@@ -20,7 +20,8 @@ body {
     height: fit-content;
     color: white;
     font-family: body;
-    background-image: linear-gradient(to right top, #383838, #2c2c2c, #202020, #151515, #040404);
+    background-color: #2c2c2c;
+    // background-image: linear-gradient(to right top, #383838, #, #202020, #151515, #040404);
     background-size: cover;
     background-attachment: fixed;
     user-select: none;
@@ -204,7 +205,7 @@ footer {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: 0.1em;
     padding: 1em;
     box-sizing: border-box;
     img {
@@ -250,7 +251,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: 0.1em;
     padding: 1em;
     box-sizing: border-box;
     div {
@@ -322,6 +323,7 @@ footer {
     align-items: flex-end;
     #plus-icon-side {
         align-self: center;
+        margin-top: 1em;
         transition: transform 100ms ease-in-out;
         -webkit-transition: transform 100ms ease-in-out;
         -moz-transition: transform 100ms ease-in-out;
@@ -765,4 +767,13 @@ footer {
     height: 100%;
     z-index: 9000;
     opacity: 0;
+}
+
+.crossed {
+    text-decoration: line-through;
+}
+
+.disabled {
+    background-color: rgba(255,255,255,0.2) !important;
+    pointer-events: none !important;
 }

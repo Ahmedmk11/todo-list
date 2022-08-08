@@ -3,17 +3,15 @@ import Quit from '../assets/images/quit.png';
 import {Task, Project} from './app.js'
 import {showProjects, showTasks, mode, setMode} from './ui.js'
 
-let tasksArr = [];
-let projectsArr = [];
+export let projectsArr = [];
 let formFlag = true;
 let formFlag2 = true;
-
 let allTags = [];
 
 export let _default = new Project('All Tasks');
 
 showProjects(projectsArr);
-showTasks(tasksArr);
+showTasks(_default.tasks);
 
 const sidebar = document.getElementById('side-bar');
 const sidebarIcon = document.getElementById('side-bar-icon');
@@ -94,14 +92,13 @@ export function onDeleteProj(event) {
     const project = event.target.parentNode;
     const index = project.id.split('-')[1];
     let rtasks = projectsArr[project.id.split('-')[1]].tasks
-    tasksArr.forEach(element => {
+    _default.tasks.forEach(element => {
         if (rtasks.includes(element)) {
-            tasksArr.splice(tasksArr.indexOf(element), 1);
             _default.tasks.splice(_default.tasks.indexOf(element), 1)
         }
     });
     setMode(_default.title);
-    showTasks(tasksArr);
+    showTasks(_default.tasks);
     projectsArr.splice(index, 1)
     project.parentNode.removeChild(project);
     let i = 0;
@@ -255,7 +252,6 @@ function onAddTask() {
         const add = document.getElementById('task-add-btn');
 
         let task = new Task(title.value, desc.value, date.value, time.value, priority.value, tags.value);
-        tasksArr.push(task);
         _default.tasks.push(task);
         allTags.push(tags.value);
         projectsArr.forEach(element => {
@@ -266,7 +262,7 @@ function onAddTask() {
         });
 
         if (mode === 'All Tasks') {
-            showTasks(tasksArr);
+            showTasks(_default.tasks);
         }
         
         const taskPlus = document.getElementById('task-add-plus');
@@ -281,6 +277,19 @@ function onAddTask() {
     }
 }
 
+export function onFinished(event) {
+    let task;
+    if (event.target.tagName === 'DIV'){
+        task = event.target.parentNode.parentNode;
+    } else {
+        task = event.target.parentNode.parentNode.parentNode;
+    }
+    const index = task.id.split('-')[1];
+    _default.tasks[index].finished = true;
+    let name = task.children[0].children[1];
+    name.classList.add('crossed');
+}
+
 export function onDeleteTask(event) {
     let task;
     if (event.target.tagName === 'DIV'){
@@ -289,7 +298,6 @@ export function onDeleteTask(event) {
         task = event.target.parentNode.parentNode.parentNode;
     }
     const index = task.id.split('-')[1];
-    tasksArr.splice(index, 1);
     _default.tasks.splice(index,1);
     task.parentNode.removeChild(task);
     let i = 0;
@@ -301,3 +309,26 @@ export function onDeleteTask(event) {
         }
     });
 }
+
+const dateBtn = document.getElementById('date-t');
+const finishedBtn = document.getElementById('finished-t');
+const tagsBtn = document.getElementById('tags-t');
+const priorityBtn = document.getElementById('priority-t');
+
+dateBtn.addEventListener('click', () => {
+
+});
+
+finishedBtn.addEventListener('click', () => {
+    setMode('Finished Tasks');
+    let allfinished = _default.tasks.filter(task => task.finished);
+    showTasks(allfinished);
+});
+
+tagsBtn.addEventListener('click', () => {
+    
+});
+
+priorityBtn.addEventListener('click', () => {
+    
+});

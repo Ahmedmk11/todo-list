@@ -14,5 +14,6 @@ export class Task {
         this.dueTime = dueTime;
         this.priority = priority;
         this.tags = tags;
+        this.finished = false;
     }
 }

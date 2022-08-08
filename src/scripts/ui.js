@@ -7,7 +7,7 @@ import DateIcn from '../assets/images/calendar.png';
 import FinishedIcn from '../assets/images/tick.png';
 import TagIcn from '../assets/images/tag.png';
 import PriorityIcn from '../assets/images/priority.png';
-import EditIcn from '../assets/images/edit.png';
+import EditIcn from '../assets/images/finish.png';
 import DeleteIcn from '../assets/images/delete.png';
 import DeleteIcn2 from '../assets/images/delete2.png';
 import TaskIcn from '../assets/images/task.png';
@@ -17,7 +17,7 @@ import Blue from '../assets/images/blue.png';
 import Green from '../assets/images/green.png';
 import Yellow from '../assets/images/yellow.png';
 import Purple from '../assets/images/purple.png';
-import {onDeleteProj, onDeleteTask, _default, addTask} from './index.js'
+import {onDeleteProj, onDeleteTask, _default, addTask, onFinished} from './index.js'
 import '../styles/style.css';
 
 export let mode = 'All Tasks';
@@ -61,7 +61,7 @@ finished.appendChild(finishedIcon);
 tag.appendChild(tagIcon);
 priority.appendChild(priorityIcon);
 
-export function showTasks(tasks) { // displays task container and header
+export function showTasks(tasks) {
     content.innerHTML = '';
     const tasksContainer = document.createElement('div');
     const header = document.createElement('h2');
@@ -109,11 +109,14 @@ export function showTasks(tasks) { // displays task container and header
             taskIcon.src = TaskIcn;
     
             name.textContent = tasks[i].title;
+            if (tasks[i].finished) {
+                name.classList.add('crossed');
+            }
             description.textContent = tasks[i].description;
             priority.textContent = '!'.repeat(tasks[i].priority);
             date.textContent = tasks[i].dueDate;
             time.textContent = tasks[i].dueTime;
-            editP.textContent = 'Edit';
+            editP.textContent = 'Done';
             deleteTaskP.textContent = 'Delete';
             
             let element;
@@ -144,9 +147,15 @@ export function showTasks(tasks) { // displays task container and header
                 element.textContent = 'No Tags';
             }
 
-            deleteTask.addEventListener('click', onDeleteTask)
+            edit.addEventListener('click', onFinished);
+            deleteTask.addEventListener('click', onDeleteTask);
+            if (mode === 'Finished Tasks') { //|| mode === ''
+                edit.removeEventListener('click', onFinished);
+                deleteTask.removeEventListener('click', onDeleteTask);
+                edit.classList.add('disabled');
+                deleteTask.classList.add('disabled');
+            }
 
-    
             nameDiv.appendChild(taskIcon);
             nameDiv.appendChild(name);
             edit.appendChild(editIcon);
@@ -163,7 +172,7 @@ export function showTasks(tasks) { // displays task container and header
             task.appendChild(priority);
             task.appendChild(element);
             task.appendChild(editDiv);
-            task.id = `task-${tasks.length-1}`;
+            task.id = `task-${i}`;
             tasksContainer.appendChild(task);
         }
     } else {
@@ -195,7 +204,7 @@ export function showProjects(projectsArr) {
     icn.addEventListener('click', () => {
         mode = _default.title;
         showTasks(_default.tasks)
-    });    
+    });
 
     for (let i = 0; i < projectsArr.length; i++) {
         const header = document.createElement('h4');
@@ -217,7 +226,7 @@ export function showProjects(projectsArr) {
         div.appendChild(header);
         projectDiv.appendChild(div);
         projectDiv.appendChild(del);
-        projectDiv.id = `project-${projectsArr.length-1}`;
+        projectDiv.id = `project-${i}`;
         plusIcon.parentNode.insertBefore(projectDiv, plusIcon);
 
         if (projectsArr.length > 0) {
