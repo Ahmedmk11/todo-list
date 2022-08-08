@@ -315,14 +315,14 @@ const finishedBtn = document.getElementById('finished-t');
 const tagsBtn = document.getElementById('tags-t');
 const priorityBtn = document.getElementById('priority-t');
 
-dateBtn.addEventListener('click', () => {
-
-});
-
 finishedBtn.addEventListener('click', () => {
     setMode('Finished Tasks');
     let allfinished = _default.tasks.filter(task => task.finished);
     showTasks(allfinished);
+});
+
+dateBtn.addEventListener('click', () => {
+
 });
 
 tagsBtn.addEventListener('click', () => {
