@@ -5,9 +5,7 @@ import {Storage} from './local-storage';
 
 export let projectsArr = [];
 export let _default = new Project('All Tasks');
-if (Storage.getProjectArr() == []) {
-    Storage.saveProjectArr([]);
-}
+
 let formFlag = true;
 let formFlag2 = true;
 
@@ -279,11 +277,12 @@ function onAddTask() {
                 showTasks(element.tasks);
             }
         });
-
+        
         if (getMode() === 'All Tasks') {
             showTasks(_default.tasks);
         }
-
+        
+        Storage.saveProjectArr(projectsArr);
         Storage.saveDefault(_default);
         
         const taskPlus = document.getElementById('task-add-plus');

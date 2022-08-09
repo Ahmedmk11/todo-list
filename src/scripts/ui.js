@@ -74,7 +74,7 @@ export function showTasks(tasks) {
     tasksContainer.id = 'tasks';
     header.id = 'current-project';
     div.id = 'tasks-header';
-    header.textContent = mode;
+    header.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
     add.addEventListener('click', addTask);
     div.appendChild(header);
     div.appendChild(add);
@@ -237,7 +237,7 @@ export function showProjects(projectsArr) {
         if (projectsArr.length > 0) {
             projectIcon.addEventListener('click', () => {
                 setMode(projectsArr[i].title);
-                showTasks(projectsArr[i].tasks)
+                showTasks(projectsArr[i].tasks);
             });
         } else {
             showTasks(_default.tasks);
