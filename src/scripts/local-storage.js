@@ -13,14 +13,14 @@ export class Storage {
     }
 
     static getDefault() {
-        return JSON.parse(localStorage.getItem('default-project'));
+        return localStorage.getItem('default-project');
     }
 
     static getProjectArr() {
-        return JSON.parse(localStorage.getItem('projects-array'));
+        return localStorage.getItem('projects-array');
     }
 
     static getMode() {
-        return JSON.parse(localStorage.getItem('mode'));
+        return localStorage.getItem('mode');
     }
 }

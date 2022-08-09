@@ -6,15 +6,27 @@ import {Storage} from './local-storage';
 export let projectsArr = [];
 export let _default = new Project('All Tasks');
 if (Storage.getProjectArr() == []) {
-    Storage.saveProjectArr(projectsArr);
+    Storage.saveProjectArr([]);
 }
-
 let formFlag = true;
 let formFlag2 = true;
 
-setMode(Storage.getMode());
-projectsArr = Storage.getProjectArr();
-_default = Storage.getDefault();
+let f = Storage.getProjectArr();
+let f2 = Storage.getDefault();
+let f3 = Storage.getMode();
+
+if (f) {
+    projectsArr = JSON.parse(f);
+}
+
+if (f2) {
+    _default = JSON.parse(f2);
+}
+
+if (f3) {
+    setMode(JSON.parse(f3));
+}
+
 showProjects(projectsArr);
 showTasks(_default.tasks);
 
