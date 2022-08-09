@@ -1,12 +1,10 @@
 import Quit from '../assets/images/quit.png';
-
-import {Task, Project} from './app.js'
 import {showProjects, showTasks, mode, setMode} from './ui.js'
+import {Task, Project} from './app.js'
 
 export let projectsArr = [];
 let formFlag = true;
 let formFlag2 = true;
-let allTags = [];
 
 export let _default = new Project('All Tasks');
 
@@ -253,7 +251,6 @@ function onAddTask() {
 
         let task = new Task(title.value, desc.value, new Date(date.value).toLocaleDateString(), time.value, priority.value, tags.value);
         _default.tasks.push(task);
-        allTags.push(tags.value);
         projectsArr.forEach(element => {
             if (element.title === mode) {
                 element.tasks.push(task);
@@ -384,49 +381,49 @@ date3.addEventListener('click', () => {
 
 tag1.addEventListener('click', () => {
     setMode('Red');
-    let arr = _default.tasks.filter(task => task.tags = 'red');
+    let arr = _default.tasks.filter(task => task.tags === 'red');
     showTasks(arr);
 });
 
 tag2.addEventListener('click', () => {
     setMode('Blue');
-    let arr = _default.tasks.filter(task => task.tags = 'blue');
+    let arr = _default.tasks.filter(task => task.tags === 'blue');
     showTasks(arr);
 });
 
 tag3.addEventListener('click', () => {
     setMode('Green');
-    let arr = _default.tasks.filter(task => task.tags = 'green');
+    let arr = _default.tasks.filter(task => task.tags === 'green');
     showTasks(arr);
 });
 
 tag4.addEventListener('click', () => {
     setMode('Yellow');
-    let arr = _default.tasks.filter(task => task.tags = 'yellow');
+    let arr = _default.tasks.filter(task => task.tags === 'yellow');
     showTasks(arr);
 });
 
 tag5.addEventListener('click', () => {
     setMode('Purple');
-    let arr = _default.tasks.filter(task => task.tags = 'purple');
+    let arr = _default.tasks.filter(task => task.tags === 'purple');
     showTasks(arr);
 });
 
 priority1.addEventListener('click', () => {
     setMode('Low Priority');
-    let arr = _default.tasks.filter(task => task.priority = '1');
+    let arr = _default.tasks.filter(task => task.priority == '1');
     showTasks(arr);
 });
 
 priority2.addEventListener('click', () => {
     setMode('Medium Priority');
-    let arr = _default.tasks.filter(task => task.priority = '2');
+    let arr = _default.tasks.filter(task => task.priority == '2');
     showTasks(arr);
 });
 
 priority3.addEventListener('click', () => {
     setMode('High Priority');
-    let arr = _default.tasks.filter(task => task.priority = '3');
+    let arr = _default.tasks.filter(task => task.priority == '3');
     showTasks(arr);
 });
 
@@ -434,3 +431,8 @@ function getDifferenceInDays(date1, date2) {
     const diffInMs = Math.abs(date2 - date1);
     return diffInMs / (1000 * 60 * 60 * 24);
 }
+
+window.addEventListener('storage', function(e) {
+
+});
+  

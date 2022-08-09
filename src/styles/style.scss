@@ -236,9 +236,6 @@ footer {
         font-size: 1.7rem;
         text-decoration: underline;
     }
-    h3:hover {
-        cursor: pointer;
-    }
     img {
         width: 30px;
         margin-right: 0.7em;
@@ -247,15 +244,6 @@ footer {
         -moz-transition: transform 300ms ease-in-out;
         -ms-transition: transform 300ms ease-in-out;
         -o-transition: transform 300ms ease-in-out;
-    }
-    img:hover {
-        cursor: pointer;
-        image-rendering: crisp-edges;
-        transform: scale(1.2);
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        -o-transform: scale(1.2);
     }
 }
 

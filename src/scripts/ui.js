@@ -149,7 +149,10 @@ export function showTasks(tasks) {
 
             edit.addEventListener('click', onFinished);
             deleteTask.addEventListener('click', onDeleteTask);
-            if (mode === 'Finished Tasks') { //|| mode === ''
+            if (mode === 'Finished Tasks' || mode === 'Today' || mode === 'This Week' 
+            || mode === 'This Month' || mode === 'Red' || mode === 'Blue' || mode === 'Green' 
+            || mode === 'Yellow' || mode === 'Purple' || mode === 'Low Priority'
+            || mode === 'Medium Priority' || mode === 'High Priority') {
                 edit.removeEventListener('click', onFinished);
                 deleteTask.removeEventListener('click', onDeleteTask);
                 edit.classList.add('disabled');
