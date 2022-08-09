@@ -17,10 +17,12 @@ import Blue from '../assets/images/blue.png';
 import Green from '../assets/images/green.png';
 import Yellow from '../assets/images/yellow.png';
 import Purple from '../assets/images/purple.png';
-import {onDeleteProj, onDeleteTask, _default, addTask, onFinished} from './index.js'
+import {onDeleteProj, onDeleteTask, _default, addTask, onFinished} from './index.js';
+import {Storage} from './local-storage';
 import '../styles/style.css';
 
-export let mode = 'All Tasks';
+let mode;
+setMode('All Tasks');
 
 const sidebarIcon = new Image();
 const homeIcon = new Image();
@@ -205,7 +207,7 @@ export function showProjects(projectsArr) {
     plusIcon.parentNode.insertBefore(div, plusIcon);
 
     icn.addEventListener('click', () => {
-        mode = _default.title;
+        setMode(_default.title);
         showTasks(_default.tasks)
     });
 
@@ -234,7 +236,7 @@ export function showProjects(projectsArr) {
 
         if (projectsArr.length > 0) {
             projectIcon.addEventListener('click', () => {
-                mode = projectsArr[i].title;
+                setMode(projectsArr[i].title);
                 showTasks(projectsArr[i].tasks)
             });
         } else {
@@ -245,4 +247,9 @@ export function showProjects(projectsArr) {
 
 export function setMode(value) {
     mode = value;
+    Storage.saveMode(value);
+}
+
+export function getMode() {
+    return mode;
 }

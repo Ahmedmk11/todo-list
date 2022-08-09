@@ -1,13 +1,20 @@
 import Quit from '../assets/images/quit.png';
-import {showProjects, showTasks, mode, setMode} from './ui.js'
-import {Task, Project} from './app.js'
+import {showProjects, showTasks, getMode, setMode} from './ui.js';
+import {Task, Project} from './app.js';
+import {Storage} from './local-storage';
 
 export let projectsArr = [];
+export let _default = new Project('All Tasks');
+if (Storage.getProjectArr() == []) {
+    Storage.saveProjectArr(projectsArr);
+}
+
 let formFlag = true;
 let formFlag2 = true;
 
-export let _default = new Project('All Tasks');
-
+setMode(Storage.getMode());
+projectsArr = Storage.getProjectArr();
+_default = Storage.getDefault();
 showProjects(projectsArr);
 showTasks(_default.tasks);
 
@@ -72,6 +79,7 @@ function onAddProject() {
         const add = document.getElementById('add-button');
         let project = new Project(input.value);
         projectsArr.push(project);
+        Storage.saveProjectArr(projectsArr);
         showProjects(projectsArr);
         formFlag = true;
 
@@ -95,9 +103,11 @@ export function onDeleteProj(event) {
             _default.tasks.splice(_default.tasks.indexOf(element), 1)
         }
     });
+    Storage.saveDefault(_default);
     setMode(_default.title);
     showTasks(_default.tasks);
     projectsArr.splice(index, 1)
+    Storage.saveProjectArr(projectsArr);
     project.parentNode.removeChild(project);
     let i = 0;
     let flag = true;
@@ -252,15 +262,17 @@ function onAddTask() {
         let task = new Task(title.value, desc.value, new Date(date.value).toLocaleDateString(), time.value, priority.value, tags.value);
         _default.tasks.push(task);
         projectsArr.forEach(element => {
-            if (element.title === mode) {
+            if (element.title === getMode()) {
                 element.tasks.push(task);
                 showTasks(element.tasks);
             }
         });
 
-        if (mode === 'All Tasks') {
+        if (getMode() === 'All Tasks') {
             showTasks(_default.tasks);
         }
+
+        Storage.saveDefault(_default);
         
         const taskPlus = document.getElementById('task-add-plus');
         taskPlus.addEventListener('click', addTask);
@@ -283,6 +295,7 @@ export function onFinished(event) {
     }
     const index = task.id.split('-')[1];
     _default.tasks[index].finished = true;
+    Storage.saveDefault(_default);
     let name = task.children[0].children[1];
     name.classList.add('crossed');
 }
@@ -296,6 +309,7 @@ export function onDeleteTask(event) {
     }
     const index = task.id.split('-')[1];
     _default.tasks.splice(index,1);
+    Storage.saveDefault(_default);
     task.parentNode.removeChild(task);
     let i = 0;
     let arr = [].slice.call(document.getElementById('tasks').children);
@@ -336,8 +350,6 @@ date1.addEventListener('click', () => {
         if (taskDate === today) {
             arr.push(task);
         }
-        console.log(taskDate)
-        console.log(today)
     }
     showTasks(arr);
 });
@@ -356,8 +368,6 @@ date2.addEventListener('click', () => {
         if (getDifferenceInDays(taskDate, week) <= 7) {
             arr.push(task);
         }
-        console.log(taskDate)
-        console.log(week)
     }
     showTasks(arr);
 });
@@ -373,8 +383,6 @@ date3.addEventListener('click', () => {
         if (taskDate.getMonth() == month) {
             arr.push(task);
         }
-        console.log(taskDate.getMonth())
-        console.log(month)
     }
     showTasks(arr);
 });
@@ -431,8 +439,3 @@ function getDifferenceInDays(date1, date2) {
     const diffInMs = Math.abs(date2 - date1);
     return diffInMs / (1000 * 60 * 60 * 24);
 }
-
-window.addEventListener('storage', function(e) {
-
-});
-  
